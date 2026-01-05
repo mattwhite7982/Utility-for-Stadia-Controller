@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_backup"
+            android:icon="@android:drawable/ic_menu_save"
+            android:title="Backup Firmware" />
+
+        <item
+            android:id="@+id/nav_flash"
+            android:icon="@android:drawable/ic_menu_upload"
+            android:title="Flash Firmware" />
+    </group>
+
+    <item android:title="Support">
+        <menu>
+            <item
+                android:id="@+id/nav_guide"
+                android:icon="@android:drawable/ic_menu_help"
+                android:title="Unlock Guide" />
+        </menu>
+    </item>
+
+</menu>

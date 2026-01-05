@@ -1,0 +1,17 @@
+<resources>
+    <style name="Theme.StadiaTool" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#4285F4</item>
+        <item name="colorPrimaryVariant">#3367D6</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="itemIconTint">#000000</item>
+        <item name="itemTextColor">#000000</item>
+
+        <item name="drawerArrowStyle">@style/WhiteDrawerArrow</item>
+    </style>
+
+    <style name="WhiteDrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#FFFFFF</item>
+    </style>
+</resources>
