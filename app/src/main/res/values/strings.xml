@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Stadia Conversion Tool</string>
+    <string name="app_name">Utility for Stadia Controller</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    
+    <!-- Disclaimer for Google Play Compliance -->
+    <string name="disclaimer_title">Disclaimer</string>
+    <string name="disclaimer_text">This app is an independent utility and is NOT affiliated with, endorsed by, or connected to Google LLC or the Stadia brand. "Stadia" is a trademark of Google LLC.</string>
 </resources>

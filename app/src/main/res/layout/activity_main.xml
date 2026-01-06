@@ -20,9 +20,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#4285F4"
+                android:background="@color/colorPrimary"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="#FFFFFF" />
+                app:titleTextColor="@color/white" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -32,6 +32,19 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_connection_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:text="Controller Disconnected"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            app:chipBackgroundColor="#B0BEC5"
+            android:clickable="false"
+            android:focusable="false" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
@@ -39,11 +52,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#FFFFFF"
+        android:background="@color/surfaceColor"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
-        app:itemIconTint="#000000"
-        app:itemTextColor="#000000" />
+        app:itemIconTint="@color/textColorPrimary"
+        app:itemTextColor="@color/textColorPrimary" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -3,6 +3,7 @@ package com.mw2311.stadiaconversiontool
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbDeviceConnection
@@ -19,6 +20,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.google.android.material.chip.Chip
+import com.google.android.material.color.DynamicColors
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -31,12 +34,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var usbManager: UsbManager
     private var statusMenuItem: MenuItem? = null
     private var statusListener: OnStatusChangedListener? = null
+    private lateinit var connectionStatusChip: Chip
 
     private var connectionState = 0 // 0: None, 1: Locked, 2: Unlock Mode
     private var activeDevice: UsbDevice? = null
     private var firmwareInfo = "No Controller Connected"
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Removed dynamic color application to enforce custom blue theme
+        // DynamicColors.applyToActivityIfAvailable(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -46,6 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
+        connectionStatusChip = findViewById(R.id.chip_connection_status)
 
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawerLayout.addDrawerListener(toggle)
@@ -56,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_backup -> replaceFragment(BackupFragment(), "Backup Firmware")
                 R.id.nav_flash -> replaceFragment(FlashFragment(), "Flash Firmware")
                 R.id.nav_guide -> replaceFragment(GuideFragment(), "Unlock Guide")
+                R.id.nav_settings -> replaceFragment(SettingsFragment(), "Settings")
             }
             drawerLayout.closeDrawer(GravityCompat.START)
             true
@@ -97,6 +106,9 @@ class MainActivity : AppCompatActivity() {
     private fun updateConnectionStatus() {
         val deviceList = usbManager.deviceList
         var found = false
+        var chipText = "Controller Disconnected"
+        var chipColor = Color.parseColor("#B0BEC5") // Grey for Disconnected
+
         for (device in deviceList.values) {
             if (device.vendorId == 0x18D1 || device.vendorId == 0x1FC9) {
                 found = true
@@ -105,9 +117,13 @@ class MainActivity : AppCompatActivity() {
                 if (device.productId == 0x0135 || device.productId == 0x000C) {
                     connectionState = 2
                     firmwareInfo = "Bootloader Mode Active"
+                    chipText = "Controller Connected" // Flash Mode
+                    chipColor = Color.parseColor("#4CAF50") // Green
                 } else {
                     connectionState = 1
                     firmwareInfo = "Hardware Locked"
+                    chipText = "Controller Locked" // Normal Mode
+                    chipColor = Color.parseColor("#FFC107") // Amber/Yellow
                 }
                 break
             }
@@ -116,6 +132,8 @@ class MainActivity : AppCompatActivity() {
             connectionState = 0
             activeDevice = null
             firmwareInfo = "No Controller Connected"
+            chipText = "Controller Disconnected"
+            chipColor = Color.parseColor("#B0BEC5")
         }
 
         runOnUiThread {
@@ -128,6 +146,10 @@ class MainActivity : AppCompatActivity() {
                 item.icon?.setTint(color)
                 item.title = firmwareInfo
             }
+            
+            connectionStatusChip.text = chipText
+            connectionStatusChip.chipBackgroundColor = ColorStateList.valueOf(chipColor)
+
             // Dispatch update to active Fragment
             statusListener?.onStatusUpdated(connectionState, firmwareInfo)
         }

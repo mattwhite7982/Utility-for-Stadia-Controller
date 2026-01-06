@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Professional Tech Blue Theme (Dark) -->
+    
+    <color name="primary">#9ECAFF</color>
+    <color name="onPrimary">#003258</color>
+    <color name="primaryContainer">#00497D</color>
+    <color name="onPrimaryContainer">#D1E4FF</color>
+
+    <color name="secondary">#BBC7DB</color>
+    <color name="onSecondary">#253140</color>
+    <color name="secondaryContainer">#3B4858</color>
+    <color name="onSecondaryContainer">#D7E3F7</color>
+
+    <color name="tertiary">#D6BEE4</color>
+    <color name="onTertiary">#3B2948</color>
+    <color name="tertiaryContainer">#523F5F</color>
+    <color name="onTertiaryContainer">#F2DAFF</color>
+
+    <color name="error">#FFB4AB</color>
+    <color name="onError">#690005</color>
+    <color name="errorContainer">#93000A</color>
+    <color name="onErrorContainer">#FFDAD6</color>
+
+    <!-- Blue Tinted Dark Backgrounds -->
+    <color name="background">#0F151C</color> <!-- Deep Dark Blue -->
+    <color name="onBackground">#E2E2E6</color>
+    <color name="surface">#0F151C</color>
+    <color name="onSurface">#E2E2E6</color>
+    
+    <color name="surfaceVariant">#43474E</color>
+    <color name="onSurfaceVariant">#C3C7CF</color>
+    <color name="outline">#8D9199</color>
+
+    <!-- Legacy / Semantic Mapping -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Dynamic Semantic Colors (Dark) -->
+    <color name="surfaceColor">@color/surface</color>
+    <color name="backgroundColor">@color/background</color>
+    <color name="textColorPrimary">@color/onBackground</color>
+    <color name="textColorSecondary">@color/onSurfaceVariant</color>
+    <color name="cardBackgroundColor">#19212C</color> <!-- Slightly lighter blue-grey for depth -->
+    <color name="dividerColor">@color/surfaceVariant</color>
+    <color name="codeBackground">#1F2633</color>
+
+    <color name="colorPrimary">@color/primary</color>
+</resources>

@@ -5,12 +5,12 @@
         <item name="android:colorBackground">?attr/colorSurface</item>
         
         <!-- Customize Status Bar to Match Primary Color -->
-        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:statusBarColor">#00497D</item>
         <item name="android:windowLightStatusBar">false</item> <!-- Text will be white -->
 
         <!-- Customize Navigation Bar -->
         <item name="android:navigationBarColor">?attr/colorSurface</item>
-        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightNavigationBar">false</item>
     </style>
 
     <style name="WhiteDrawerArrow" parent="Widget.AppCompat.DrawerArrowToggle">

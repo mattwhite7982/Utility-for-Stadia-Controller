@@ -33,6 +33,7 @@ class BackupFragment : Fragment(), MainActivity.OnStatusChangedListener {
     }
 
     private val saveLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { res ->
+        // Only run backup if the result code implies success (which is usually the case for ACTION_CREATE_DOCUMENT)
         res.data?.data?.let { uri ->
             runBackup(uri, targetSize)
         }
@@ -53,6 +54,7 @@ class BackupFragment : Fragment(), MainActivity.OnStatusChangedListener {
 
     private fun performPreDumpChecks(size: Long, defaultName: String) {
         val mainActivity = activity as? MainActivity ?: return
+        
         if (mainActivity.getConnectionState() != 2) {
             Toast.makeText(context, "Hardware Locked: Enter Bootloader Mode", Toast.LENGTH_SHORT).show()
             return
@@ -73,10 +75,14 @@ class BackupFragment : Fragment(), MainActivity.OnStatusChangedListener {
         val handler = Handler(Looper.getMainLooper())
 
         progressBar.visibility = View.VISIBLE
+        progressBar.progress = 0 // Reset progress
         txtBackupStatus.text = "Handshaking with hardware..."
+        txtBackupStatus.visibility = View.VISIBLE
+        txtBackupStatus.setTextColor(Color.parseColor("#4285F4")) // Set to default text color (primary blue)
 
         Thread {
             var pfd: ParcelFileDescriptor? = null
+            var success = false
             try {
                 val usbIntf = device.getInterface(0)
                 if (!connection.claimInterface(usbIntf, true)) throw Exception("USB Interface Busy")
@@ -132,6 +138,7 @@ class BackupFragment : Fragment(), MainActivity.OnStatusChangedListener {
                 }
 
                 val isValid = verifyDumpIntegrity(uri, size)
+                success = true
                 handler.post {
                     if (isValid) {
                         txtBackupStatus.text = "SUCCESS: Backup Verified"
@@ -169,7 +176,11 @@ class BackupFragment : Fragment(), MainActivity.OnStatusChangedListener {
     }
 
     override fun onStatusUpdated(state: Int, info: String) {
-        txtBackupStatus.text = info
+        // Do not overwrite status text if a dump is in progress
+        if (progressBar.visibility != View.VISIBLE) {
+             txtBackupStatus.text = info
+        }
+        
         val enabled = (state == 2)
         btnEssentials.isEnabled = enabled
         btnFull.isEnabled = enabled
@@ -180,8 +191,16 @@ class BackupFragment : Fragment(), MainActivity.OnStatusChangedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as? MainActivity)?.setOnStatusChangedListener(this)
+        
+        // Initial check without overwriting text blindly
         val mainActivity = (activity as? MainActivity)
-        onStatusUpdated(mainActivity?.getConnectionState() ?: 0, "Initializing...")
+        val state = mainActivity?.getConnectionState() ?: 0
+        
+        val enabled = (state == 2)
+        btnEssentials.isEnabled = enabled
+        btnFull.isEnabled = enabled
+        btnEssentials.alpha = if (enabled) 1.0f else 0.3f
+        btnFull.alpha = if (enabled) 1.0f else 0.3f
     }
 
     override fun onDestroyView() {
