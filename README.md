@@ -8,7 +8,6 @@
 Stadia Controller Dumper is an open-source utility built for Android to interface with Google Stadia hardware (H02A). 
 It enables enthusiasts to perform full firmware extractions directly from an Android device using a USB-C cable.
 
-Project Scope
 This mobile tool leverages the Android USB Host API to communicate with the controller without requiring root access. It is designed for:
 
 Firmware Backup: Preserving original device states before Bluetooth-mode conversion.
