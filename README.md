@@ -1,7 +1,8 @@
 
-<img width="1280" height="2856" alt="Screenshot_20260106-212115" src="https://github.com/user-attachments/assets/23ca24d2-cd20-431f-936e-66b9abb8aa8e" />
+
   
-<p align="center">
+<p align="center"><img width="1280" height="2856" alt="unnamed" src="https://github.com/user-attachments/assets/05faad64-1d6e-41f7-af7b-0b05d7a4c09e" />
+
   <b><h1>Utility for Stadia Controller</h1></b>
 </p>
 
